@@ -1,0 +1,43 @@
+ [build-system]
+ requires = ["hatchling"]
+ build-backend = "hatchling.build"
+
+ [project]
+ name = "hybrid-verifier-toolkit"
+ version = "0.1.0"
+ description = "Hybrid rule + LLM verification toolkit for synthetic data and RL pipelines"
+ authors = [
+   { name = "HVT Contributors" }
+ ]
+ requires-python = ">=3.10"
+ dependencies = [
+   "numpy>=1.26",
+   "sympy>=1.12"
+ ]
+
+ [project.optional-dependencies]
+ llm = [
+   "litellm>=1.41"
+ ]
+ dev = [
+   "pytest>=8.2",
+   "pytest-cov>=5.0",
+   "ruff>=0.6"
+ ]
+
+[project.scripts]
+hvt = "hvt.cli:main"
+
+ [tool.pytest.ini_options]
+ addopts = "-ra"
+ testpaths = ["tests"]
+
+ [tool.ruff]
+ line-length = 100
+ target-version = "py310"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hvt"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/hvt", "README.md", "pyproject.toml", "tests"]
